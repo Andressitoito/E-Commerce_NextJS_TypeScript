@@ -1,3 +1,7 @@
+//////////////////////////////////
+// TYPES VS INTERFACE
+/////////////////////////////////
+
 // TS Recommend to use Interface over Types when possible
 // Describe data structures in a more natural way
 // Describing objects
@@ -71,30 +75,62 @@
 
 // type PersonLoggerFn = (name: string, age?: number) => string;
 
+//////////////////////////////////
+// NARROWING
+//////////////////////////////////
 
+export function play_a() {
+	// const names: string[] = ['Filip', 'Jhon']
+	// const numbers: Array<number> = [1, 2, 3, 4, 5]
 
+	const random = Math.random() > 0.5 ? "Hello" : [1, 2];
 
-// export default function play() {
-// 	// const names: string[] = ['Filip', 'Jhon']
-// 	// const numbers: Array<number> = [1, 2, 3, 4, 5]
+	// Narrowing
+	if (typeof random === "string") {
+		const upper = random.toUpperCase();
+	} else {
+		console.log(random);
+	}
 
-// 	const random = Math.random() > 0.5 ? "Hello" : [1, 2];
-
-//  // Narrowing
-// 	if (typeof random === "string") {
-// 		const upper = random.toUpperCase();
-// 	} else {
-//   console.log(random);
-//  }
-
-//  console.log(random.length);
-
-// }
-
-interface Person {
- name: string
+	console.log(random.length);
 }
 
-export default function Play(){
+//////////////////////////////////
+// EXTENDING INTERFACE
+//////////////////////////////////
 
+interface Person {
+	name: string;
+	age: number;
+}
+
+interface BusinessPerson extends Person {
+	salary: number;
+}
+
+interface AcademicPerson extends Person {
+	publications: string[];
+}
+
+export default function Play() {
+	const person: Person = {
+		name: "Andresito",
+		age: 42,
+	};
+
+	const person1: AcademicPerson = {
+		name: "Andresito",
+		age: 42,
+		publications: ["1", "2"],
+	};
+
+	const person2: BusinessPerson = {
+		name: "Andresito",
+		age: 42,
+		salary: 1000,
+	};
+
+	function logPerson(person: Person) {}
+
+ logPerson(person2)
 }
