@@ -165,7 +165,7 @@ export default function play() {
 // UNIONS
 //////////////////////////////////
 
-type RaceCar = {
+/* type RaceCar = {
 	name: string;
 	maxSpeed: 200;
 	team: string;
@@ -187,7 +187,9 @@ export default function Play() {
 	};
 
 	function logCarInfo(car: Car) {
-		console.log(car.name);
+		// Type Casting
+		console.log((car as CityCar).space);
+		console.log((<RaceCar>car).maxSpeed);
 
 		switch (car.maxSpeed) {
 			case 200:
@@ -198,9 +200,61 @@ export default function Play() {
 				console.log(car);
 				break;
 
-				default: 
+			default:
 				console.log(car);
-				
+
+		}
+	}
+} */
+
+//////////////////////////////////
+// INTERFACE NARROWING
+//////////////////////////////////
+
+interface Person {
+	prop1: string
+	prop2: number
+}
+
+interface Person {
+	name: string;
+	age: number;
+	kind: "bussiness" | "academic";
+}
+
+interface BusinessPerson extends Person {
+	kind: "bussiness";
+	salary: number;
+}
+
+interface AcademicPerson extends Person {
+	kind: "academic";
+	publications: string[];
+}
+
+type Human =
+	| BusinessPerson
+	| AcademicPerson
+	| { kind: "otherType"; special: string };
+
+export default function Play() {
+
+	const person: Person = {
+		prop1: "",
+		prop2: 123,
+		kind: 'academic',
+		name: 'Andy',
+		age: 34
+	}
+
+
+	function LogPersonInfo(human: Human) {
+		if (human.kind === "academic") {
+			console.log(human);
+		} else if (human.kind === "bussiness") {
+			console.log(human);
+		} else {
+			console.log(human);
 		}
 	}
 }
