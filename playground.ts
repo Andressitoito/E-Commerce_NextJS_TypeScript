@@ -164,8 +164,7 @@ export default function play() {
 //////////////////////////////////
 // UNIONS
 //////////////////////////////////
-
-/* type RaceCar = {
+type RaceCar = {
 	name: string;
 	maxSpeed: 200;
 	team: string;
@@ -177,43 +176,49 @@ type CityCar = {
 	maxSpeed: 100;
 };
 
-type Car = RaceCar | CityCar;
+type SUVCar = {
+	maxSpeed: 150;
+	name: string;
+	isCarbonFree: boolean;
+};
 
-export default function Play() {
-	const car: RaceCar = {
-		name: "RacerCar",
-		maxSpeed: 200,
-		team: "Ferrari",
-	};
+type Car = RaceCar | CityCar | SUVCar;
 
-	function logCarInfo(car: Car) {
-		// Type Casting
-		console.log((car as CityCar).space);
-		console.log((<RaceCar>car).maxSpeed);
+// export default function Play() {
+// 	const car: RaceCar = {
+// 		name: "RacerCar",
+// 		maxSpeed: 200,
+// 		team: "Ferrari",
+// 	};
 
-		switch (car.maxSpeed) {
-			case 200:
-				console.log(car.team);
-				break;
+// 	function logCarInfo(car: Car) {
+// 		// Type Casting
+// 		console.log((car as CityCar).space);
+// 		console.log((<RaceCar>car).maxSpeed);
 
-			case 100:
-				console.log(car);
-				break;
+// 		switch (car.maxSpeed) {
+// 			case 200:
+// 				console.log(car.team);
+// 				break;
 
-			default:
-				console.log(car);
+// 			case 100:
+// 				console.log(car);
+// 				break;
 
-		}
-	}
-} */
+// 			default:
+// 				console.log(car);
+
+// 		}
+// 	}
+// }
 
 //////////////////////////////////
 // INTERFACE NARROWING
 //////////////////////////////////
 
 interface Person {
-	prop1: string
-	prop2: number
+	prop1: string;
+	prop2: number;
 }
 
 interface Person {
@@ -238,15 +243,13 @@ type Human =
 	| { kind: "otherType"; special: string };
 
 export default function Play() {
-
 	const person: Person = {
 		prop1: "",
 		prop2: 123,
-		kind: 'academic',
-		name: 'Andy',
-		age: 34
-	}
-
+		kind: "academic",
+		name: "Andy",
+		age: 34,
+	};
 
 	function LogPersonInfo(human: Human) {
 		if (human.kind === "academic") {
@@ -257,4 +260,36 @@ export default function Play() {
 			console.log(human);
 		}
 	}
+
+	function logCarInfo(car: Car) {
+		// Type Casting
+		console.log((car as CityCar).space);
+		console.log((<RaceCar>car).maxSpeed);
+
+		switch (car.maxSpeed) {
+			case 200:
+				console.log(car.team);
+				break;
+
+			case 100:
+				console.log(car);
+				break;
+
+			case 150:
+				console.log(car.isCarbonFree);
+				break;
+
+			default:
+				const _never: never = car;
+				return _never;
+		}
+	}
+
+	function printInfo(someObject: { [key: string]: unknown }) {
+		if (typeof someObject.age === "string") {
+			someObject.age.toUpperCase();
+		}
+	}
+
+	printInfo({});
 }
